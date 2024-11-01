@@ -264,3 +264,28 @@ ab -n 100 -c 10 -p login.json -T application/json http://www.gryffindor.hogwarts
 
 # nomor 20
 ab -n 100 -c 10 -p login.json -T application/json http://10.6.6.2:8003/api/me
+
+
+
+
+
+
+
+
+
+
+
+
+
+echo 'nameserver 10.6.3.2' > /etc/resolv.conf
+apt-get update
+apt-get install nginx -y
+apt-get install wget -y
+apt-get install unzip -y
+apt-get install lynx -y
+apt-get install htop -y
+apt-get install apache2-utils -y
+apt-get install php7.4-fpm php7.4-common php7.4-mysql php7.4-gmp php7.4-curl php7.4-intl php7.4-mbstring php7.4-xmlrpc php7.4-gd php>
+
+service nginx start
+service php7.4-fpm start

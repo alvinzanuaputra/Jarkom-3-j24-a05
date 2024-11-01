@@ -1,7 +1,5 @@
 # SOAL 6
-echo '
-nameserver 192.168.122.1
-nameserver 10.6.3.2' > /etc/resolv.conf
+echo 'nameserver 10.6.3.2' > /etc/resolv.conf
 
 # Install necessary packages
 apt-get update
@@ -26,6 +24,7 @@ chmod -R 755 /var/www/gryffindor.hogwarts.a05.com
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/gryffindor.hogwarts.a05.com
 ln -s /etc/nginx/sites-available/gryffindor.hogwarts.a05.com /etc/nginx/sites-enabled/gryffindor.hogwarts.a05.com
 rm /etc/nginx/sites-enabled/default
+
 
 
 # nano /etc/hosts

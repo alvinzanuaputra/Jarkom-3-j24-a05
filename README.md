@@ -236,49 +236,47 @@ iface eth0 inet dhcp
 setiap node, kita inisiasi pada `.bashrc` menggunakan `nano`
 
 - DNS Server
-  ```sh
+```sh
   echo 'nameserver 192.168.122.1' > /etc/resolv.conf
   apt-get update
   apt-get install bind9 -y
-  ```
+```
 - DHCP Server
-  ```sh
-  echo 'nameserver 10.6.1.2' > /etc/resolv.conf   # Pastikan DNS Server sudah berjalan
+```sh
+  echo 'nameserver 10.6.3.2' > /etc/resolv.conf   # Pastikan DNS Server sudah berjalan
   apt-get update
   apt install isc-dhcp-server -y
   ```
 - DHCP Relay
-  ```sh
+```sh
   apt-get update
   apt install isc-dhcp-relay -y
-  ```
+```
 - Database Server
 
-  ```sh
-  echo 'nameserver 10.6.1.2' > /etc/resolv.conf
+```sh
+echo 'nameserver 10.6.3.2' > /etc/resolv.conf
   apt-get update
   apt-get install mariadb-server -y
   service mysql start
-
-  Lalu jangan lupa untuk mengganti [bind-address] pada file /etc/mysql/mariadb.conf.d/50-server.cnf menjadi 0.0.0.0 dan jangan lupa untuk melakukan restart mysql kembali
-  ```
+# Lalu jangan lupa untuk mengganti [bind-address] pada file /etc/mysql/mariadb.conf.d/50-server.cnf menjadi 0.0.0.0 dan jangan lupa untuk melakukan restart mysql kembali
+```
 
 - Load Balancer
 
-  ```sh
-  echo 'nameserver 10.6.1.2' > /etc/resolv.conf
+```sh
+  echo 'nameserver 10.6.3.2' > /etc/resolv.conf
   apt-get update
   apt-get install apache2-utils -y
   apt-get install nginx -y
   apt-get install lynx -y
-
   service nginx start
-  ```
+```
 
 - Worker PHP
 
-  ```sh
-  echo 'nameserver 10.6.1.2' > /etc/resolv.conf
+```sh
+  echo 'nameserver 10.6.3.2' > /etc/resolv.conf
   apt-get update
   apt-get install nginx -y
   apt-get install wget -y
@@ -290,12 +288,12 @@ setiap node, kita inisiasi pada `.bashrc` menggunakan `nano`
 
   service nginx start
   service php7.4-fpm start
-  ```
+```
 
 - Worker Laravel
 
-  ```sh
-  echo 'nameserver 10.6.1.2' > /etc/resolv.conf
+```sh
+  echo 'nameserver 10.6.3.2' > /etc/resolv.conf
   apt-get update
   apt-get install lynx -y
   apt-get install mariadb-client -y
@@ -310,16 +308,17 @@ setiap node, kita inisiasi pada `.bashrc` menggunakan `nano`
 
   service nginx start
   service php8.0-fpm start
-  ```
+```
 
 - Client
-  ```sh
+```sh
+  echo 'nameserver 10.6.3.2' > /etc/resolv.conf
   apt update
   apt install lynx -y
   apt install htop -y
   apt install apache2-utils -y
   apt-get install jq -y
-  ```
+```
 
 ## Soal 1
 
@@ -372,14 +371,13 @@ Forwarder: Mengarahkan query DNS yang tidak diketahui ke server lain (IP 192.168
 **Di McGonagall**
 
 ```bash
-echo 'options {
+echo '
+options {
       directory "/var/cache/bind";
-
       forwarders {
-        192.168.122.1;
+          192.168.122.1;
       };
-
-      // dnssec-validation auto;
+      dnssec-validation no;
       allow-query{any;};
       auth-nxdomain no; 
       listen-on-v6 { any; };
@@ -1591,7 +1589,7 @@ cat historyLogin.txt
 
 - Explanation
 
-  `Put your explanation in here`
+`melakukan pengujian pada endpoint /login di salah satu server worker menggunakan Apache Benchmark dari klien SusanBones. Pengujian ini dilakukan sebanyak 100 permintaan dengan kecepatan 10 permintaan per detik, dan membutuhkan file login.json yang berisi data login untuk otentikasi. Hasil dari pengujian ini termasuk respons token yang diperoleh, yang disimpan dalam file historyLogin.txt untuk referensi lebih lanjut.`
 
 <br>
 
@@ -1688,7 +1686,7 @@ ab -n 100 -c 10 -p login.json -T application/json http://www.gryffindor.hogwarts
 
 - Explanation
 
-  `Put your explanation in here`
+`Dengan menggunakan konfigurasi Proxy Bind, IP dari masing-masing worker dihubungkan ke load balancer ini, yang akan mendistribusikan permintaan dari pengguna secara seimbang ke setiap worker. Konfigurasi dimulai dengan menambahkan blok worker pada file Nginx untuk mendefinisikan ketiga worker beserta IP dan port mereka. Setelah itu, blok server ditambahkan untuk mengatur proxy_pass ke grup worker yang telah dibuat, sehingga semua permintaan ke domain gryffindor.hogwarts.a05.com akan dialihkan melalui load balancer. Setelah konfigurasi selesai, load balancer dapat diuji menggunakan Apache Benchmark dari sisi klien untuk memastikan distribusi beban yang optimal.`
 
 <br>
 

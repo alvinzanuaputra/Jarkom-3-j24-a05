@@ -1,7 +1,4 @@
-echo '
-nameserver 192.168.122.1
-nameserver 10.6.3.2
-' > /etc/resolv.conf   # Pastikan DNS Server sudah berjalan 
+echo 'nameserver 10.6.3.2' > /etc/resolv.conf   # Pastikan DNS Server sudah berjalan 
 
 apt-get update
 apt install isc-dhcp-server -y

@@ -34,23 +34,23 @@ www.gryffindor  IN      CNAME   gryffindor.hogwarts.a05.com.
 ' >/etc/bind/hogwarts/hogwarts.a05.com
 
 
-echo 'options {
+echo '
+options {
       directory "/var/cache/bind";
-
       forwarders {
-        192.168.122.1;
+          192.168.122.1;
       };
-
-      // dnssec-validation auto;
+      dnssec-validation no;
       allow-query{any;};
       auth-nxdomain no; 
       listen-on-v6 { any; };
 }; ' >/etc/bind/named.conf.options
 
+
 service named restart
+
 
 #WOEEEEEEEEEEEEEEEEEEE
 # dns server nyalain
 # dhcp nyalain
 # dhcprelay nyalain
-
