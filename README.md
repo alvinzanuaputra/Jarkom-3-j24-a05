@@ -2012,8 +2012,11 @@ ab -n 100 -c 10 http://www.gryffindor.hogwarts.a05.com/index.php
 <br>
   
 ## Problems
-GNS 3 lemot Mainan di backend sama database seharian gara-gara servernya error. Jmeternya lamaaaa bangettt repot, yang unzip, zip, download, setting, kesita waktu banyak banget. Apalagi dihajar ETS jadi nabrak dan waktunya kurang. Saya minim pengetahuan dan saya tidak terlalu pintar namun saya tetap berusaha mas : )
+GNS 3 lemot Mainan di backend sama database seharian gara-gara servernya error. Jmeternya lamaaaa bangettt repot, yang unzip, zip, download, setting, kesita waktu banyak banget. Apalagi dihajar ETS jadi nabrak dan waktunya kurang. Yang paling bikin repot itu nama server hilang sendiri tapi tidak sadar waktu jmeter. udah 15 kali jmeter baru paham kenapa grafik nya 100% fail ternyata namaserver. Last terlalu banyak laporan yang harus dikerjakan terlalu berat di Nguli laporanya dan 20 soal !!!.
+
+Ekspresi setelah mengerjakan praktikum :
 
 ![alt text](/assets/img/problems.jpg)
 
 ## Revisions (if any)
+Untuk revisi hanya jmeter `nomer 8` dan sedikit perubahan config installasi saja. Untuk praktikum kurang lebih "accepting" semua waktu praktikum.
