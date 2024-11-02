@@ -236,22 +236,28 @@ iface eth0 inet dhcp
 setiap node, kita inisiasi pada `.bashrc` menggunakan `nano`
 
 - DNS Server
+
 ```sh
   echo 'nameserver 192.168.122.1' > /etc/resolv.conf
   apt-get update
   apt-get install bind9 -y
 ```
+
 - DHCP Server
+
 ```sh
   echo 'nameserver 10.6.3.2' > /etc/resolv.conf   # Pastikan DNS Server sudah berjalan
   apt-get update
   apt install isc-dhcp-server -y
-  ```
+```
+
 - DHCP Relay
+
 ```sh
   apt-get update
   apt install isc-dhcp-relay -y
 ```
+
 - Database Server
 
 ```sh
@@ -311,6 +317,7 @@ echo 'nameserver 10.6.3.2' > /etc/resolv.conf
 ```
 
 - Client
+
 ```sh
   echo 'nameserver 10.6.3.2' > /etc/resolv.conf
   apt update
@@ -379,7 +386,7 @@ options {
       };
       dnssec-validation no;
       allow-query{any;};
-      auth-nxdomain no; 
+      auth-nxdomain no;
       listen-on-v6 { any; };
 }; ' >/etc/bind/named.conf.options
 ```
@@ -432,7 +439,6 @@ ping ravenclaw.hogwarts.a05.com -c 3
 `SusanBones (Client)`
 
 ![alt text](/assets/img/NOMOR2-4.png)
-
 
 - Configuration
 
@@ -502,7 +508,6 @@ service isc-dhcp-server restart
 
 ![alt text](/assets/img/NOMOR3-2.png)
 
-
 - Configuration
 
 **Di DHCP Server**
@@ -560,7 +565,7 @@ service isc-dhcp-server restart
 
 - Screenshot
 
-switch 2 
+switch 2
 
 ![alt text](/assets/img/NOMOR4-1.png)
 
@@ -568,17 +573,13 @@ switch 5
 
 ![alt text](/assets/img/NOMOR4-2.png)
 
-switch 1 
+switch 1
 
 ![alt text](/assets/img/NOMOR4-3.png)
 
 switch 6
 
 ![alt text](/assets/img/NOMOR4-4.png)
-
-
-
-
 
 - Configuration
 
@@ -633,7 +634,6 @@ service isc-dhcp-server restart
 
 - Explanation
 
-
 `Pada konfigurasi ini, server DHCP menetapkan batasan waktu peminjaman alamat IP untuk klien yang terhubung melalui switch dengan durasi berbeda-beda. Untuk klien yang melalui switch 2, waktu peminjaman IP ditetapkan selama 5 menit (300 detik), sedangkan untuk klien yang terhubung melalui switch 5, waktu peminjaman adalah 20 menit (1200 detik). Untuk klien yang terhubung melalui switch 1 dan switch 6, waktu peminjaman IP adalah 10 menit (600 detik). Selain itu, batas waktu maksimal peminjaman IP untuk semua klien ditetapkan selama 100 menit (6000 detik). Pengaturan ini diterapkan pada konfigurasi file dhcpd.conf di server DHCP, yang mengelola distribusi IP sesuai dengan subnet yang berbeda berdasarkan switch yang digunakan oleh klien.`
 
 <br>
@@ -650,15 +650,15 @@ service isc-dhcp-server restart
 
 **HermioneGranger**
 
-  ![alt text](./assets/img/NOMOR5-1.png)
+![alt text](./assets/img/NOMOR5-1.png)
 
-  ![alt text](./assets/img/NOMOR5-2.png)
+![alt text](./assets/img/NOMOR5-2.png)
 
 **ChoChang**
 
-  ![alt text](./assets/img/NOMOR5-3.png)
+![alt text](./assets/img/NOMOR5-3.png)
 
-  ![alt text](./assets/img/NOMOR5-4.png)
+![alt text](./assets/img/NOMOR5-4.png)
 
 - Configuration
 
@@ -669,13 +669,13 @@ service isc-dhcp-server restart
 ```bash
 echo '
 host HermioneGranger {
-    hardware ethernet 42:56:87:3c:9e:3d;  
-    fixed-address 10.6.1.14;              
+    hardware ethernet 42:56:87:3c:9e:3d;
+    fixed-address 10.6.1.14;
 }
 
 host ChoChang {
-    hardware ethernet b6:04:99:bd:42:8a; 
-    fixed-address 10.6.6.14;            
+    hardware ethernet b6:04:99:bd:42:8a;
+    fixed-address 10.6.6.14;
 }' >> /etc/dhcp/dhcpd.conf
 
 service isc-dhcp-server restart
@@ -711,7 +711,6 @@ service isc-dhcp-server restart
 
   ![alt text](./assets/img/NOMOR6-3.png)
 
-
 - Configuration
 
 `Jangan lupa lakukan installasi setup khusus di KE-3 PHP Worker ini.`
@@ -742,7 +741,7 @@ server {
     root /var/www/gryffindor.hogwarts.a05.com;
     index index.php index.html index.htm;
     server_name gryffindor.hogwarts.a05.com www.gryffindor.hogwarts.a05.com;
- 
+
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }
@@ -774,7 +773,7 @@ echo '
 # ff02::1 ip6-allnodes
 # ff02::2 ip6-allrouters
 
-# hostname 
+# hostname
 # HarryPotter
 ' > /etc/hosts
 
@@ -801,16 +800,18 @@ lynx www.gryffindor.hogwarts.a05.com
 **Answer:**
 
 - Screenshot
+  Hasil benchmarking
 
   ![alt text](/assets/img/NOMOR7-1.png)
   ![alt text](/assets/img/NOMOR7-2.png)
+
+  Hasil Htop
+
   ![alt text](/assets/img/NOMOR7-3.png)
   ![alt text](/assets/img/NOMOR7-4.png)
   ![alt text](/assets/img/NOMOR7-5.png)
 
-
 - Configuration
-
 
 `konfigurasi ini digunakan agar Voldemort dapat membagi pekerjaan kepada worker PHP secara optimal. Sebagai pengetesan awal, untuk menerapkan algoritma round robin dan melakukan test index.php, gunakan upstream backend dan masukkan servername 3 php worker untuk test lakukan ab di client dan htop di Load Balancer`
 
@@ -821,7 +822,7 @@ lynx www.gryffindor.hogwarts.a05.com
 ```bash
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/libray_php
 
-echo ' 
+echo '
 upstream backend {
     server 10.6.1.1;
     server 10.6.1.2;
@@ -860,19 +861,22 @@ ab -n 1000 -c 100 http://www.gryffindor.hogwarts.a05.com/index.php
 - Explanation
 
 Pertama-tama hitung mean nya dulu dengan rumus :
+
 ```bash
   T1 + T2 + T3 / 3
   = 3.9 + 5.0 + 8.0 / 3
-  = 31.333333333333332 
-  = 31.33 m/s
+  = 16.9 / 3
+  = 5.633333333333333
+  = 5.6 m/s
 ```
 
 Terakhir hitung nilai standard deviasi :
+
 ```bash
-  SD = √ (T1 - Mean)^2 + (T2 - Mean)^2 + (T3 - Mean)^2 / 3
-  = √ (3.9 - 31.333333333333332)^2 + (5.0 - 31.333333333333332)^2 + (8.0 - 31.333333333333332)^2 / 3
-  = √663.5174999999999
-​  = 25.75
+SD = √((T1 - Mean)^2 + (T2 - Mean)^2 + (T3 - Mean)^2) / 3
+   = √((3.9 - 5.633333)^2 + (5.0 - 5.633333)^2 + (8.0 - 5.633333)^2) / 3
+   = √3.00
+   = 1.73 m/s
 ```
 
 `Load balancer bagi para PHP worker dari Gryffindor. Dengan mengonfigurasi Voldemort menggunakan algoritma round robin, ia bisa membagi permintaan ke setiap PHP worker secara merata. Pengujian awal menggunakan Apache Benchmark dilakukan pada halaman index.php dengan 1.000 request pada kecepatan 100 request/detik, dan hasilnya diuji sebanyak tiga kali. Dengan rata-rata waktu request 31,33 ms dan standar deviasi 25,75 ms, konfigurasi ini memastikan distribusi beban yang efektif dan merata.`
@@ -889,10 +893,38 @@ Terakhir hitung nilai standard deviasi :
 
 - Screenshot
 
+Lakukan login terlebih dahulu
 ![alt text](/assets/img/NOMOR8-1.png)
+
+Output menggunakan alagoritma Round Robbin
+
 ![alt text](/assets/img/NOMOR8-2.png)
+
 ![alt text](/assets/img/NOMOR8-3.png)
+
 ![alt text](/assets/img/NOMOR8-4.png)
+
+![alt text](/assets/img/NOMOR8-5.png)
+
+Output menggunakan alagoritma Least Connection
+
+![alt text](/assets/img/NOMOR8-6.png)
+
+![alt text](/assets/img/NOMOR8-7.png)
+
+![alt text](/assets/img/NOMOR8-8.png)
+
+![alt text](/assets/img/NOMOR8-9.png)
+
+Output menggunakan alagoritma IP Hash
+
+![alt text](/assets/img/NOMOR8-10.png)
+
+![alt text](/assets/img/NOMOR8-11.png)
+
+![alt text](/assets/img/NOMOR8-12.png)
+
+![alt text](/assets/img/NOMOR8-13.png)
 
 - Configuration
 
@@ -901,7 +933,7 @@ Terakhir hitung nilai standard deviasi :
 ```bash
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/libray_php
 
-echo ' 
+echo '
 upstream backend {
     server 10.6.1.1;
     server 10.6.1.2;
@@ -960,26 +992,81 @@ upstream backend {
 ' >/etc/nginx/sites-available/libray_php
 ```
 
+```bash
+ab -n 300 -c 3 http://www.gryffindor.hogwarts.a05.com/index.php
+```
+
 `Disini lah konfigurasi untuk monitoring melalui Jmeter yang diunduh nanti dalam bentuk UI Website sesuaikan output file`
 
 **Di Client**
 
 ```bash
-echo 'nameserver 192.168.122.1 ' > /etc/resolv.conf
-apt-get update
-java -version
-apt-get install openjdk-11-jre
-wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.zip
-unzip apache-jmeter-5.6.3.zip
 cd apache-jmeter-5.6.3/bin
-nano test1.jmx
-# masukin isi file tadi
-mkdir ../../TEST-1JMX
-./jmeter -n -t Test-1.jmx -l Test-1.jmx.csv -e -o ../../TEST-1JMX
 
-# tarik ke local
+#####################################################################################
+nano 1-RoundRobbin.jmx
+# masukin isi file bawaan jmx tadi
+echo 'nameserver 192.122.1 ' > /etc/resolv.conf
+mkdir ../../1-ROUNDROBBINJMX
+./jmeter -n -t 1-RoundRobbin.jmx -l 1-RoundRobbin.csv -e -o ../../1-ROUNDROBBINJMX
+
+# kalau gajadi/gagal
+rm -r ../../1-ROUNDROBBINJMX
+mkdir ../../1-ROUNDROBBINJMX
+rm 1-RoundRobbin.csv
+./jmeter -n -t 1-RoundRobbin.jmx -l 1-RoundRobbin.csv -e -o ../../1-ROUNDROBBINJMX
+
+
+
+cd
+
+zip -r 1-ROUNDROBBIN.zip 1-ROUNDROBBINJMX/
 echo 'nameserver 8.8.8.8 ' > /etc/resolv.conf
-curl -X POST -F "file=@./nomor8.zip" https://webhook.site/857529be-99b6-4296-803a-3358f513e529
+curl -X POST -F "file=@./1-ROUNDROBBIN.zip" https://webhook.site/d2e2392e-e7ae-48ea-9a05-5f244e81e565
+#####################################################################################
+nano 2-LeasConnection.jmx
+# masukin isi file bawaan jmx tadi
+echo 'nameserver 192.122.1 ' > /etc/resolv.conf
+mkdir ../../2.LEASCONNECTIONJMX
+./jmeter -n -t 2-LeasConnection.jmx -l 2-LeasConnection.csv -e -o ../../2.LEASCONNECTIONJMX
+
+# kalau gajadi/gagal
+rm -r ../../2.LEASCONNECTIONJMX
+mkdir ../../2.LEASCONNECTIONJMX
+rm 2-LeasConnection.csv
+./jmeter -n -t 2-LeasConnection.jmx -l 2-LeasConnection.csv -e -o ../../2.LEASCONNECTIONJMX
+
+cd
+
+zip -r 2-LEASCONNECTION.zip 2.LEASCONNECTIONJMX/
+echo 'nameserver 8.8.8.8 ' > /etc/resolv.conf
+curl -X POST -F "file=@./2-LEASCONNECTION.zip" https://webhook.site/d2e2392e-e7ae-48ea-9a05-5f244e81e565
+#####################################################################################
+nano 3-iphash.jmx
+# masukin isi file bawaan jmx tadi
+echo 'nameserver 192.122.1 ' > /etc/resolv.conf
+mkdir ../../3-IPHASHJMX
+./jmeter -n -t 3-iphash.jmx -l 3-iphash.csv -e -o ../../3-IPHASHJMX
+
+# kalau gajadi/gagal
+rm -r ../../3.IPHASHJMX
+mkdir ../../3.IPHASHJMX
+rm 3-iphash.csv
+./jmeter -n -t 3-iphash.jmx -l 3-iphash.csv -e -o ../../3-IPHASHJMX
+
+cd
+
+zip -r 3-IPHASH.zip 3-IPHASHJMX/
+echo 'nameserver 8.8.8.8 ' > /etc/resolv.conf
+curl -X POST -F "file=@./3-IPHASH.zip" https://webhook.site/d2e2392e-e7ae-48ea-9a05-5f244e81e565
+#####################################################################################
+```
+
+
+
+# STANDARD DEVIASI BELUM 
+```bash
+
 ```
 
 - Explanation
@@ -1058,21 +1145,26 @@ lynx gryffindor.hogwarts.a05.com
 
 - Screenshot
 
-3 Worker
-
-![alt text](/assets/img/NOMOR10-2.png)
-![alt text](/assets/img/NOMOR10-5.png)
-
-2 Worker
-
-![alt text](/assets/img/NOMOR10-1.png)
-![alt text](/assets/img/NOMOR10-6.png)
-
 1 Worker
 
+![alt text](/assets/img/NOMOR10-1.png)
+![alt text](/assets/img/NOMOR10-2.png)
 ![alt text](/assets/img/NOMOR10-3.png)
 ![alt text](/assets/img/NOMOR10-4.png)
 
+2 Worker
+
+![alt text](/assets/img/NOMOR10-5.png)
+![alt text](/assets/img/NOMOR10-6.png)
+![alt text](/assets/img/NOMOR10-7.png)
+![alt text](/assets/img/NOMOR10-8.png)
+
+3 Worker
+
+![alt text](/assets/img/NOMOR10-9.png)
+![alt text](/assets/img/NOMOR10-10.png)
+![alt text](/assets/img/NOMOR10-11.png)
+![alt text](/assets/img/NOMOR10-12.png)
 
 - Configuration
 
@@ -1101,30 +1193,72 @@ upstream backend  {
 service nginx restart
 ```
 
-**Di Client
+**Di Client**
 
 ```bash
-ab -n 300 -c 100 http://www.gryffindor.hogwarts.a05.com/index.php
+ab -n 300 -c 3 http://www.gryffindor.hogwarts.a05.com/index.php
 ```
 
 `Untuk Jmeter kurang lebih sam cara kerja nya dengan nomor 8 lakukan di client`
 
 ```bash
-echo 'nameserver 192.168.122.1 ' > /etc/resolv.conf
-apt-get update
-java -version
-apt-get install openjdk-11-jre
-wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.zip
-unzip apache-jmeter-5.6.3.zip
-cd apache-jmeter-5.6.3/bin
-nano test1.jmx
-# masukin isi file tadi
-mkdir ../../TEST-1JMX
-./jmeter -n -t Test-1.jmx -l Test-1.jmx.csv -e -o ../../TEST-1JMX
+#####################################################################################
+nano 1-worker.jmx
+# masukin isi file bawaan jmx tadi
+echo 'nameserver 192.122.1 ' > /etc/resolv.conf
+mkdir ../../1-WORKERJMX
+./jmeter -n -t 1-worker.jmx -l 1-worker.csv -e -o ../../1-WORKERJMX
 
-# tarik ke local
+# kalau gajadi/gagal
+rm -r ../../1-WORKERJMX
+mkdir ../../1-WORKERJMX
+rm 1-worker.csv
+./jmeter -n -t 1-worker.jmx -l 1-worker.csv -e -o ../../1-WORKERJMX
+
+
+
+cd
+
+zip -r 1-WORKER.zip 1-WORKERJMX/
 echo 'nameserver 8.8.8.8 ' > /etc/resolv.conf
-curl -X POST -F "file=@./nomor8.zip" https://webhook.site/857529be-99b6-4296-803a-3358f513e529
+curl -X POST -F "file=@./1-WORKER.zip" https://webhook.site/d2e2392e-e7ae-48ea-9a05-5f244e81e565
+#####################################################################################
+nano 2-worker.jmx
+# masukin isi file bawaan jmx tadi
+echo 'nameserver 192.122.1 ' > /etc/resolv.conf
+mkdir ../../2-WORKERJMX
+./jmeter -n -t 2-worker.jmx -l 2-worker.csv -e -o ../../2-WORKERJMX
+
+# kalau gajadi/gagal
+rm -r ../../2-WORKERJMX
+mkdir ../../2-WORKERJMX
+rm 2-worker.csv
+./jmeter -n -t 2-worker.jmx -l 2-worker.csv -e -o ../../2-WORKERJMX
+
+cd
+
+zip -r 2-WORKER.zip 2-WORKERJMX/
+echo 'nameserver 8.8.8.8 ' > /etc/resolv.conf
+curl -X POST -F "file=@./2-WORKER.zip" https://webhook.site/d2e2392e-e7ae-48ea-9a05-5f244e81e565
+#####################################################################################
+nano 3-worker.jmx
+# masukin isi file bawaan jmx tadi
+echo 'nameserver 192.122.1 ' > /etc/resolv.conf
+mkdir ../../3-WORKERJMX
+./jmeter -n -t 3-worker.jmx -l 3-worker.csv -e -o ../../3-WORKERJMX
+
+# kalau gajadi/gagal
+rm -r ../../3-WORKERJMX
+mkdir ../../3-WORKERJMX
+rm 3-worker.csv
+./jmeter -n -t 3-worker.jmx -l 3-worker.csv -e -o ../../3-WORKERJMX
+
+cd
+
+zip -r 3-WORKER.zip 3-WORKERJMX/
+echo 'nameserver 8.8.8.8 ' > /etc/resolv.conf
+curl -X POST -F "file=@./3-WORKER.zip" https://webhook.site/d2e2392e-e7ae-48ea-9a05-5f244e81e565
+#####################################################################################
 ```
 
 - Explanation
@@ -1150,7 +1284,7 @@ curl -X POST -F "file=@./nomor8.zip" https://webhook.site/857529be-99b6-4296-803
 **Load Balancer**
 
 ```bash
-echo ' 
+echo '
 upstream backend {
     server 10.6.1.1;
     server 10.6.1.2;
@@ -1206,7 +1340,6 @@ lynx gryffindor.hogwarts.a05.com/informatika
 Salah satu IP yang diizinkan di voldermort
 ![alt text](/assets/img/NOMOR12-1.png)
 ![alt text](/assets/img/NOMOR12-2.png)
-
 
 Pengecualian IP yang diizinkan di voldermort
 ![alt text](/assets/img/NOMOR12-3.png)
@@ -1316,7 +1449,7 @@ service mysql start
 
 ```bash
 mysql -u root -p
-# Enter password: 
+# Enter password:
 
 CREATE USER 'kelompoka05'@'%' IDENTIFIED BY 'passworda05';
 CREATE USER 'kelompoka05'@'localhost' IDENTIFIED BY 'passworda05';
@@ -1521,7 +1654,7 @@ lynx localhost:8003
 
 `Memasukkan username dan password kedalam file.json agar dapat di monitoring secara langsung menggunakan apache benchmark`
 
-**Client
+\*\*Client
 
 ```bash
 apt-get install apache2-utils -y
@@ -1650,6 +1783,7 @@ cat /var/log/nginx/access.log
 **Load Balancer**
 
 `Setup Server`
+
 ```bash
 echo '
 worker {
@@ -1667,7 +1801,7 @@ server {
     }
     error_log /var/log/nginx/error.log;
     access_log /var/log/nginx/access.log;
-} 
+}
 ' > /etc/nginx/sites-available/laravel-worker
 
 ln -s /etc/nginx/sites-available/laravel-worker /etc/nginx/sites-enabled/laravel-worker
@@ -1763,7 +1897,6 @@ service php8.0-fpm restart
 # ab -n 100 -c 10 -p login.json -T application/json http://www.gryffindor.hogwarts.a05.com/api/auth/login
 ```
 
-
 script3
 
 ```bash
@@ -1843,6 +1976,7 @@ pm.max_spare_servers = 30' > /etc/php/8.0/fpm/pool.d/www.conf
 ```bash
 echo '
 upstream worker {
+    least conn;
     server 10.6.6.1:8004;
     server 10.6.6.2:8005;
     server 10.6.6.3:8006;
@@ -1857,7 +1991,7 @@ server {
     }
     error_log /var/log/nginx/error.log;
     access_log /var/log/nginx/access.log;
-} 
+}
 ' > /etc/nginx/sites-available/laravel-worker
 
 ln -s /etc/nginx/sites-available/laravel-worker /etc/nginx/sites-enabled/laravel-worker

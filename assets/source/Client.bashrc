@@ -31,26 +31,74 @@ lynx gryffindor.hogwarts.a05.com
 htop
 
 
-# nomor 8
+# nomor 8 pakai client dracomalfoy aja
 echo 'nameserver 192.168.122.1 ' > /etc/resolv.conf
-htop
 apt-get update
 java -version
 apt-get install openjdk-11-jre
 wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.zip
 unzip apache-jmeter-5.6.3.zip
 cd apache-jmeter-5.6.3/bin
-nano test1.jmx
-# masukin isi file tadi
-mkdir ../../TEST-1JMX
-./jmeter -n -t Test-1.jmx -l Test-1.jmx.csv -e -o ../../TEST-1JMX
+
+#####################################################################################
+nano 1-RoundRobbin.jmx
+# masukin isi file bawaan jmx tadi
+echo 'nameserver 192.122.1 ' > /etc/resolv.conf
+mkdir ../../1-ROUNDROBBINJMX
+./jmeter -n -t 1-RoundRobbin.jmx -l 1-RoundRobbin.csv -e -o ../../1-ROUNDROBBINJMX
+
+# kalau gajadi/gagal
+rm -r ../../1-ROUNDROBBINJMX
+mkdir ../../1-ROUNDROBBINJMX
+rm 1-RoundRobbin.csv
+./jmeter -n -t 1-RoundRobbin.jmx -l 1-RoundRobbin.csv -e -o ../../1-ROUNDROBBINJMX
 
 
-# tarik ke local
+
+cd
+
+zip -r 1-ROUNDROBBIN.zip 1-ROUNDROBBINJMX/
 echo 'nameserver 8.8.8.8 ' > /etc/resolv.conf
-curl -X POST -F "file=@./nomor8.zip" https://webhook.site/857529be-99b6-4296-803a-3358f513e529
+curl -X POST -F "file=@./1-ROUNDROBBIN.zip" https://webhook.site/d2e2392e-e7ae-48ea-9a05-5f244e81e565
+#####################################################################################
+nano 2-LeasConnection.jmx
+# masukin isi file bawaan jmx tadi
+echo 'nameserver 192.122.1 ' > /etc/resolv.conf
+mkdir ../../2.LEASCONNECTIONJMX
+./jmeter -n -t 2-LeasConnection.jmx -l 2-LeasConnection.csv -e -o ../../2.LEASCONNECTIONJMX
 
-# ab -n 300 -c 3 http://www.gryffindor.hogwarts.a05.com/index.php
+# kalau gajadi/gagal
+rm -r ../../2.LEASCONNECTIONJMX
+mkdir ../../2.LEASCONNECTIONJMX
+rm 2-LeasConnection.csv
+./jmeter -n -t 2-LeasConnection.jmx -l 2-LeasConnection.csv -e -o ../../2.LEASCONNECTIONJMX
+
+cd
+
+zip -r 2-LEASCONNECTION.zip 2.LEASCONNECTIONJMX/
+echo 'nameserver 8.8.8.8 ' > /etc/resolv.conf
+curl -X POST -F "file=@./2-LEASCONNECTION.zip" https://webhook.site/d2e2392e-e7ae-48ea-9a05-5f244e81e565
+#####################################################################################
+nano 3-iphash.jmx
+# masukin isi file bawaan jmx tadi
+echo 'nameserver 192.122.1 ' > /etc/resolv.conf
+mkdir ../../3-IPHASHJMX
+./jmeter -n -t 3-iphash.jmx -l 3-iphash.csv -e -o ../../3-IPHASHJMX
+
+# kalau gajadi/gagal
+rm -r ../../3.IPHASHJMX
+mkdir ../../3.IPHASHJMX
+rm 3-iphash.csv
+./jmeter -n -t 3-iphash.jmx -l 3-iphash.csv -e -o ../../3-IPHASHJMX
+
+cd
+
+zip -r 3-IPHASH.zip 3-IPHASHJMX/
+echo 'nameserver 8.8.8.8 ' > /etc/resolv.conf
+curl -X POST -F "file=@./3-IPHASH.zip" https://webhook.site/d2e2392e-e7ae-48ea-9a05-5f244e81e565
+#####################################################################################
+
+# ab -n 300 -c 3 http://gryffindor.hogwarts.a05.com/index.php
 
 
 # nomor 9
@@ -75,7 +123,7 @@ lynx www.gryffindor.hogwarts.a05.com
 
 
 
-# nomor 10
+# nomor 10 pakai client dracomalfoy aja
 echo 'nameserver 192.168.122.1 
 nameserver 8.8.8.8' > /etc/resolv.conf
 apt-get update
@@ -84,8 +132,11 @@ apt-get install openjdk-11-jre
 wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.zip
 unzip apache-jmeter-5.6.3.zip
 cd apache-jmeter-5.6.3/bin
-nano testWorker3.jmx
-# masukin isi file tadi
+
+# nano file.jmx (sesuaikan dengan worker)
+
+
+# masukin script jmeter
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
@@ -208,18 +259,64 @@ nano testWorker3.jmx
 ```
 
 
-nano testWorker2.jmx
 
-mkdir ../../TEST-2WORKERJMX
-./jmeter -n -t testWorker2.jmx -l Test-2Worker.jmx.csv -e -o ../../TEST-2WORKERJMX
+#####################################################################################
+nano 1-worker.jmx
+# masukin isi file bawaan jmx tadi
+echo 'nameserver 192.122.1 ' > /etc/resolv.conf
+mkdir ../../1-WORKERJMX
+./jmeter -n -t 1-worker.jmx -l 1-worker.csv -e -o ../../1-WORKERJMX
+
+# kalau gajadi/gagal
+rm -r ../../1-WORKERJMX
+mkdir ../../1-WORKERJMX
+rm 1-worker.csv
+./jmeter -n -t 1-worker.jmx -l 1-worker.csv -e -o ../../1-WORKERJMX
+
+
 
 cd
 
-zip -r nomor10-2WORK.zip TEST-2WORKERJMX/
-
-# tarik ke local
+zip -r 1-WORKER.zip 1-WORKERJMX/
 echo 'nameserver 8.8.8.8 ' > /etc/resolv.conf
-curl -X POST -F "file=@./nomor10-2WORK.zip" https://webhook.site/857529be-99b6-4296-803a-3358f513e529
+curl -X POST -F "file=@./1-WORKER.zip" https://webhook.site/d2e2392e-e7ae-48ea-9a05-5f244e81e565
+#####################################################################################
+nano 2-worker.jmx
+# masukin isi file bawaan jmx tadi
+echo 'nameserver 192.122.1 ' > /etc/resolv.conf
+mkdir ../../2-WORKERJMX
+./jmeter -n -t 2-worker.jmx -l 2-worker.csv -e -o ../../2-WORKERJMX
+
+# kalau gajadi/gagal
+rm -r ../../2-WORKERJMX
+mkdir ../../2-WORKERJMX
+rm 2-worker.csv
+./jmeter -n -t 2-worker.jmx -l 2-worker.csv -e -o ../../2-WORKERJMX
+
+cd
+
+zip -r 2-WORKER.zip 2-WORKERJMX/
+echo 'nameserver 8.8.8.8 ' > /etc/resolv.conf
+curl -X POST -F "file=@./2-WORKER.zip" https://webhook.site/d2e2392e-e7ae-48ea-9a05-5f244e81e565
+#####################################################################################
+nano 3-worker.jmx
+# masukin isi file bawaan jmx tadi
+echo 'nameserver 192.122.1 ' > /etc/resolv.conf
+mkdir ../../3-WORKERJMX
+./jmeter -n -t 3-worker.jmx -l 3-worker.csv -e -o ../../3-WORKERJMX
+
+# kalau gajadi/gagal
+rm -r ../../3-WORKERJMX
+mkdir ../../3-WORKERJMX
+rm 3-worker.csv
+./jmeter -n -t 3-worker.jmx -l 3-worker.csv -e -o ../../3-WORKERJMX
+
+cd
+
+zip -r 3-WORKER.zip 3-WORKERJMX/
+echo 'nameserver 8.8.8.8 ' > /etc/resolv.conf
+curl -X POST -F "file=@./3-WORKER.zip" https://webhook.site/d2e2392e-e7ae-48ea-9a05-5f244e81e565
+#####################################################################################
 
 
 # nomor 15
@@ -289,3 +386,10 @@ apt-get install php7.4-fpm php7.4-common php7.4-mysql php7.4-gmp php7.4-curl php
 
 service nginx start
 service php7.4-fpm start
+
+
+
+echo '
+nameserver 192.168.122.1
+nameserver 10.6.3.2
+' > /etc/resolv.conf

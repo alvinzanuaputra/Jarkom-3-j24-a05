@@ -1,26 +1,24 @@
 # SOAL 6
-echo 'nameserver 10.6.3.2' > /etc/resolv.conf
+echo '
+nameserver 192.168.122.1
+nameserver 10.6.3.2
+' > /etc/resolv.conf
 
-# Install necessary packages
 apt-get update
 apt-get install -y nginx wget unzip lynx htop apache2-utils php7.4-fpm php7.4-common php7.4-mysql php7.4-gmp php7.4-curl php7.4-intl php7.4-mbstring php7.4-xmlrpc php7.4-gd php7.4-xml php7.4-cli php7.4-zip
 
-# Check and start services
 service nginx status
 service php7.4-fpm status
 service nginx restart
 service php7.4-fpm start
 
-# Download and unzip the website
 wget -O '/var/www/gryffindor.zip' 'https://drive.google.com/uc?export=download&id=17R4Zcxm3emHq21WdMJzSfCxO8FHqvATM'
 unzip -o /var/www/gryffindor.zip -d /var/www/gryffindor.hogwarts.a05.com
 rm /var/www/gryffindor.zip
 
-# Set proper permissions
 chown -R www-data:www-data /var/www/gryffindor.hogwarts.a05.com
 chmod -R 755 /var/www/gryffindor.hogwarts.a05.com
 
-# Set up Nginx site configuration
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/gryffindor.hogwarts.a05.com
 ln -s /etc/nginx/sites-available/gryffindor.hogwarts.a05.com /etc/nginx/sites-enabled/gryffindor.hogwarts.a05.com
 rm /etc/nginx/sites-enabled/default

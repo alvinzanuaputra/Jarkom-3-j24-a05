@@ -26,8 +26,8 @@ server {
             proxy_set_header    Host $http_host;
     }
 
-    auth_basic "Restricted Content";
-    auth_basic_user_file /etc/nginx/secretchamber/htpasswd;
+    # auth_basic "Restricted Content";
+    # auth_basic_user_file /etc/nginx/secretchamber/htpasswd;
 
     error_log /var/log/nginx/error.log;
     access_log /var/log/nginx/access.log;
@@ -74,7 +74,7 @@ upstream backend {
 ' >/etc/nginx/sites-available/libray_php
 
 testing 
-ab -n 300 -c 10 http://www.gryffindor.hogwarts.a05.com/index.php
+ab -n 300 -c 3 http://gryffindor.hogwarts.a05.com/index.php
 
 # 9
 echo 'nameserver 192.168.122.1 ' >/etc/resolv.conf
@@ -100,17 +100,13 @@ upstream backend {
     server 10.6.1.2;
     server 10.6.1.3;
 }
-upstream backend  {
-    # Round Robin
-    server 10.6.1.1;
-    server 10.6.1.2;
-}
+
 upstream backend  {
     # Round Robin
     server 10.6.1.1;
 }' >/etc/nginx/sites-available/libray_php
 
-# ab -n 300 -c 100 http://www.gryffindor.hogwarts.a05.com/index.php
+# ab -n 300 -c 3 http://www.gryffindor.hogwarts.a05.com/index.php
 
 # test lanjutanya pakai jmeter
 
@@ -250,7 +246,7 @@ pm.min_spare_servers = 15
 pm.max_spare_servers = 30' > /etc/php/8.0/fpm/pool.d/www.conf
 #
 
-# load B
+# load Balancer
 
 echo '
 upstream worker {
